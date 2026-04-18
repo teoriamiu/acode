@@ -1,0 +1,11 @@
+[default]
+check-filename = true
+
+[files]
+extend-exclude = [
+    "node_modules",
+    ".vscode"
+]
+
+[default.extend-words]
+formate = "formate"
