@@ -1,0 +1,76 @@
+name: Android CI & Persistent Release
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    defaults:
+      run:
+        working-directory: acode-1.11.8
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: gradle
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+        
+      - name: Build
+        run: |
+          npx cordova platform add android
+          pnpm run build
+          
+      - name: Prepare APK for Release
+        run: |
+          mkdir -p ../dist
+          find platforms/android/app/build/outputs/apk/ -name "*.apk" -exec cp {} ../dist/Acode-Latest.apk \;
+          
+      - name: Update Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest-build
+          name: "android-sdk, gradle y apk"
+          body: |
+            Esta es la compilación más reciente generada automáticamente.
+            Fecha: ${{ github.event.head_commit.timestamp }}
+            Commit: ${{ github.sha }}
+          files: dist/Acode-Latest.apk
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
