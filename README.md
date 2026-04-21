@@ -171,12 +171,12 @@ pnpm install && \
 # 4. 🤖 Añade la plataforma Android versión 14.0.1 sin guardarla en el manifiesto
 npx cordova platform add android@14.0.1 --nosave && \
 
-# 5. 🔨 Ejecuta el script de construcción para generar el proyecto final
-pnpm run build
-```
+# 5. 🔨 Compila el proyecto
+pnpm run build && \
 
-El APK generado se encontrará en:
-`platforms/android/app/build/outputs/apk/debug/app-debug.apk`
+# 6. 📤 Mueve la APK generada a la carpeta de Descargas del teléfono
+mv platforms/android/app/build/outputs/apk/debug/app-debug.apk ~/storage/downloads/
+```
 
 ---
 
