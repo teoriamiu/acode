@@ -175,7 +175,7 @@ npx cordova platform add android@14.0.1 --nosave && \
 pnpm run build && \
 
 # 6. 📤 Mueve la APK generada a la carpeta de Descargas del teléfono
-mv platforms/android/app/build/outputs/apk/debug/app-debug.apk ~/storage/downloads/
+mv ~/acode-termux-base/acode-1.11.8/platforms/android/app/build/outputs/apk/debug/app-debug.apk ~/storage/downloads/
 ```
 
 ---
