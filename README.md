@@ -159,7 +159,7 @@ EOF
 ​Finalmente, construye el archivo APK:
 ```shell
 # 1. 📂 Entra al directorio específico del proyecto acode
-cd acode-termux-base/acode-1.11.18 && \
+cd acode-termux-base/acode-1.11.8 && \
 
 # 2. 📁 Crea la carpeta de plataformas si no existe para evitar errores de ruta
 mkdir -p platforms && \
