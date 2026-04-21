@@ -78,11 +78,13 @@ If you prefer not to use Docker at all:
 
 | Requirement | Version |
 |------------|---------|
-| **Node.js** | 18+ (22 recommended) |
+| **Node.js** | 18+ (22+ recommended) |
 | **pnpm** or **bun** | Latest |
-| **Java JDK** | 17+ (21 recommended) |
+| **Java JDK** | 17+ (21+ recommended) |
 | **Android SDK** | API 35 | 
 | **Gradle** | 8.x |
+
+> **🚀 Termux Users:** If you are building natively on Android using Termux (aarch64), follow the specialized guide in [readme.md](readme.md#--guía-de-compilación-nativa-en-termux-aarch64) for architecture-specific patches.
 
 ### Environment Setup
 
