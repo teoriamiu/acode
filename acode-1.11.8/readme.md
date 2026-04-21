@@ -8,6 +8,7 @@
 
 ## • Overview
 
+
 Welcome to Acode Editor - a powerful and versatile code editing tool designed specifically for Android devices. Whether you're working on HTML, CSS, JavaScript, or other programming languages, Acode empowers you to code on-the-go with confidence.
 
 ## • Features
@@ -53,53 +54,68 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
 
 ### 🚀 Guía de Compilación Nativa en Termux (aarch64)
 
-Para compilar Acode directamente en un dispositivo Android usando Termux, sigue estos pasos probados:
+Para compilar Acode directamente en un dispositivo Android usando Termux, sigue estos pasos optimizados:
 
 #### 1. Requisitos Previos
 Asegúrate de tener instalados los paquetes esenciales en Termux:
 ```shell
-pkg install openjdk-17 nodejs-lts zip unzip
+pkg install openjdk-21 nodejs-lts zip unzip
+# Recomendado: pnpm para una gestión de paquetes más rápida
+npm install -g pnpm
 ```
 
 #### 2. Configuración del Entorno
-Exporta las rutas necesarias para que el sistema encuentre el Java JDK y el Android SDK personalizado:
+Exporta las rutas necesarias (ajustadas a tu sistema):
 ```shell
-export JAVA_HOME=/data/data/com.termux/files/usr/lib/jvm/java-17-openjdk
-export ANDROID_HOME=$HOME/Acode-termux/Acode-compilacion/android-sdk
+export JAVA_HOME=/data/data/com.termux/files/usr/lib/jvm/java-21-openjdk
+export ANDROID_HOME=$HOME/android-sdk
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/36.0.0
-export GRADLE_USER_HOME=$HOME/Acode-termux/Acode-compilacion/.gradle
+export GRADLE_USER_HOME=$HOME/.gradle
 export GRADLE_OPTS="-Dandroid.aapt2FromMaven=false"
 ```
 
 #### 3. Instalación de Dependencias
 ```shell
-cd Acode-1.11.8
+cd acode-1.11.8
 mkdir -p platforms
-npm install
+pnpm install
 npx cordova platform add android@14.0.1 --nosave
 ```
 
-#### 4. El Parche de AAPT2 (Solución al error de arquitectura)
-Gradle descarga por defecto versiones x86_64 de `aapt2` que no funcionan en Termux. Debes inyectar el binario nativo en la caché de Gradle:
+#### 4. El Parche de AAPT2 (Solución Crítica de Arquitectura)
+Gradle descarga versiones x86_64 de `aapt2` que fallan en Termux. Este script inyecta el binario nativo de tu SDK en la caché de Gradle:
+
+> **Nota:** Si es tu primera vez compilando, ejecuta primero `pnpm run build` y deja que falle. Esto forzará a Gradle a descargar las herramientas necesarias para que el script pueda encontrarlas y parchearlas.
 
 ```shell
 # 1. Localiza el binario nativo en el SDK
 NATIVE_AAPT2=$ANDROID_HOME/build-tools/36.0.0/aapt2
 
-# 2. Localiza los JARs de aapt2 en la caché de Gradle
+# 2. Parchear tanto archivos JAR como binarios extraídos en la caché
+echo "Aplicando parches de AAPT2..."
 find $GRADLE_USER_HOME/caches -name "aapt2-*-linux.jar" | while read jar; do
-  echo "Parcheando $jar..."
+  echo "Parcheando JAR: $jar"
   cp $NATIVE_AAPT2 ./aapt2
   zip -f "$jar" aapt2
   rm aapt2
 done
+
+find $GRADLE_USER_HOME/caches -name "aapt2" -type f | while read binary; do
+  # Solo parchear si no es el binario nativo del SDK
+  if [[ "$binary" != *"$ANDROID_HOME"* ]]; then
+    echo "Reemplazando binario extraído en: $binary"
+    cp $NATIVE_AAPT2 "$binary"
+  fi
+done
 ```
 
-#### 5. Compilación
-Ejecuta el script de construcción principal (esto usará Webpack para el frontend y Cordova para el APK):
+#### 5. Compilación Final
 ```shell
-npm run build
+pnpm run build
 ```
+
+El APK generado estará en:
+`platforms/android/app/build/outputs/apk/debug/app-debug.apk`
 
 El APK generado se encontrará en:
 `platforms/android/app/build/outputs/apk/debug/app-debug.apk`
