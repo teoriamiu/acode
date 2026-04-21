@@ -155,9 +155,9 @@ export GRADLE_OPTS="-Dandroid.aapt2FromMaven=false"
 EOF
 ```
 
-#### 5. Compilación del Proyecto
+#### 5. Compilación y Exportación de la APK
 
-​Finalmente, construye el archivo APK:
+​Finalmente, construye el archivo y muévelo a tu carpeta de descargas:
 ```shell
 # 1. 📂 Entra al directorio específico del proyecto acode
 cd acode-termux-base/acode-1.11.8 && \
