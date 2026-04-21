@@ -59,7 +59,7 @@ jobs:
       - name: Prepare APK for Release
         run: |
           mkdir -p ../dist
-          find platforms/android/app/build/outputs/apk/ -name "*.apk" -exec cp {} ../dist/Acode-Latest.apk \;
+          find platforms/android/app/build/outputs/apk/ -name "*.apk" -exec cp {} ../dist/acode.apk \;
           
       - name: Update Release
         uses: softprops/action-gh-release@v2
@@ -70,7 +70,7 @@ jobs:
             Esta es la compilación más reciente generada automáticamente.
             Fecha: ${{ github.event.head_commit.timestamp }}
             Commit: ${{ github.sha }}
-          files: dist/Acode-Latest.apk
+          files: dist/acode.apk
           make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
