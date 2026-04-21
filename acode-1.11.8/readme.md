@@ -78,10 +78,20 @@ EOF
 
 #### 3. Instalación de Dependencias
 ```shell
-cd acode-1.11.8
-mkdir -p platforms
-pnpm install
-npx cordova platform add android@14.0.1 --nosave
+# 1. 📂 Entra al directorio específico del proyecto acode
+cd acode-termux-base/acode-1.11.18 && \
+
+# 2. 📁 Crea la carpeta de plataformas si no existe para evitar errores de ruta
+mkdir -p platforms && \
+
+# 3. 📦 Instala todas las dependencias del proyecto usando pnpm
+pnpm install && \
+
+# 4. 🤖 Añade la plataforma Android versión 14.0.1 sin guardarla en el manifiesto
+npx cordova platform add android@14.0.1 --nosave && \
+
+# 5. 🔨 Ejecuta el script de construcción para generar el proyecto final
+pnpm run build
 ```
 
 #### 4. El Parche de AAPT2 (Solución Crítica de Arquitectura)
