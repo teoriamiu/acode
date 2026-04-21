@@ -146,6 +146,7 @@ rm gradle.zip
 ​Exporta las rutas necesarias en tu archivo de configuración de Zsh:
 ```shell
 cat <<EOF >> ~/.zshrc
+
 export JAVA_HOME=/data/data/com.termux/files/usr/lib/jvm/java-21-openjdk
 export ANDROID_HOME=$HOME/android-sdk
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/36.0.0
