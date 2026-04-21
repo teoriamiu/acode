@@ -94,6 +94,9 @@ npx cordova platform add android@14.0.1 --nosave && \
 pnpm run build
 ```
 
+El APK generado se encontrará en:
+`platforms/android/app/build/outputs/apk/debug/app-debug.apk`
+
 #### 4. El Parche de AAPT2 (Solución Crítica de Arquitectura)
 Gradle descarga versiones x86_64 de `aapt2` que fallan en Termux. Este script inyecta el binario nativo de tu SDK en la caché de Gradle:
 
@@ -120,17 +123,6 @@ find $GRADLE_USER_HOME/caches -name "aapt2" -type f | while read binary; do
   fi
 done
 ```
-
-#### 5. Compilación Final
-```shell
-pnpm run build
-```
-
-El APK generado estará en:
-`platforms/android/app/build/outputs/apk/debug/app-debug.apk`
-
-El APK generado se encontrará en:
-`platforms/android/app/build/outputs/apk/debug/app-debug.apk`
 
 ---
 
