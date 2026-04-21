@@ -141,33 +141,6 @@ pnpm run build
 El APK generado se encontrará en:
 `platforms/android/app/build/outputs/apk/debug/app-debug.apk`
 
-#### 4. El Parche de AAPT2 (Solución Crítica de Arquitectura)
-Gradle descarga versiones x86_64 de `aapt2` que fallan en Termux. Este script inyecta el binario nativo de tu SDK en la caché de Gradle:
-
-> **Nota:** Si es tu primera vez compilando, ejecuta primero `pnpm run build` y deja que falle. Esto forzará a Gradle a descargar las herramientas necesarias para que el script pueda encontrarlas y parchearlas.
-
-```shell
-# 1. Localiza el binario nativo en el SDK
-NATIVE_AAPT2=$ANDROID_HOME/build-tools/36.0.0/aapt2
-
-# 2. Parchear tanto archivos JAR como binarios extraídos en la caché
-echo "Aplicando parches de AAPT2..."
-find $GRADLE_USER_HOME/caches -name "aapt2-*-linux.jar" | while read jar; do
-  echo "Parcheando JAR: $jar"
-  cp $NATIVE_AAPT2 ./aapt2
-  zip -f "$jar" aapt2
-  rm aapt2
-done
-
-find $GRADLE_USER_HOME/caches -name "aapt2" -type f | while read binary; do
-  # Solo parchear si no es el binario nativo del SDK
-  if [[ "$binary" != *"$ANDROID_HOME"* ]]; then
-    echo "Reemplazando binario extraído en: $binary"
-    cp $NATIVE_AAPT2 "$binary"
-  fi
-done
-```
-
 ---
 
 ## • Contributors
