@@ -13,3 +13,5 @@ pnpm-lock.yaml
 .idea
 ace-builds
 fdroid.bool
+.gradle/
+android-sdk/
