@@ -1,0 +1,36 @@
+[33m5302084[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix workflow: install cordova globally and rename release APK to antigravity.apk
+[33m7aa28d9[m Update android.yml
+[33ma2d6526[m Descripción de lo que cambiaste
+[33mc2b151e[m Descripción de lo que cambiaste
+[33m1de9602[m Tus cambios listos
+[33m4d9b002[m Update Node.js version to 24 in workflow
+[33me98ec6d[m Tu mensaje de commit aquí
+[33me0c2348[m Update APK move command in README
+[33mfde6093[m Revise build and APK generation steps in README
+[33m3e84bb9[m Update README.md
+[33ma7f6b57[m Update README.md
+[33m7a9a603[m Fix directory version in README instructions
+[33m49c2f58[m Update README to remove contributing section
+[33m6f917f7[m Update README.md
+[33m8117af2[m Update installation and environment setup instructions
+[33m6063e14[m Enhance README with Git setup and cloning instructions
+[33mad10026[m Update README.md
+[33m397bd7a[m Update android.yml
+[33mc185b92[m Delete logo_1.png
+[33m67079ba[m Update README.md
+[33m795038c[m Fix image source formatting in README.md
+[33mc914ddd[m Update README.md
+[33m7840d29[m Fix image tag formatting in README.md
+[33m9e6a95a[m Add files via upload
+[33m2da81bb[m Fix badge links and update closing tag in README
+[33m899dbc0[m Update README.md
+[33m13f2ce2[m Add README.md for Acode Editor documentation
+[33m9339dcb[m Remove AAPT2 patching instructions
+[33m17caaa2[m Update installation instructions in readme.md
+[33m70ae1da[m Update readme.md
+[33maa88576[m Revise installation instructions in readme.md
+[33m8dcf85c[m Update readme with Gradle and environment setup
+[33m721a63a[m[33m ([m[1;33mtag: [m[1;33mlatest-build[m[33m)[m Sincronización con carpeta .github y archivos base
+[33ma78f547[m Update Node.js and Java JDK version requirements
+[33m942091c[m Revise Acode build instructions for Termux
+[33me0a0b8f[m Initial commit from Termux
